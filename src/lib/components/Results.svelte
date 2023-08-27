@@ -2,13 +2,9 @@
 	import type { klasseD } from '$lib/bruks';
 	export let temp: typeof klasseD;
 	export let name: string;
-	import { createEventDispatcher } from 'svelte';
+	import { afterUpdate, createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
-
-	const onChange = () => {
-		window.dispatchEvent(new CustomEvent('nkk.res.change', { detail: { name, value: temp } }));
-	};
 
 	$: resLydighet = temp.lydighet.moment.reduce((prev, next) => prev + next.score * next.ratio, 0);
 	$: resSpesial = temp.specialØvelser.moment.reduce(
@@ -22,7 +18,8 @@
 	$: opprykkLydighet = resLydighet > temp.lydighet.opprykk;
 	$: opprykkSpesial = resSpesial > temp.specialØvelser.opprykk;
 	$: opprykk = opprykkLydighet && opprykkSpesial;
-	$: resSum, onChange();
+
+	afterUpdate(() => dispatch('updated'));
 </script>
 
 <div class="result-wrapper">

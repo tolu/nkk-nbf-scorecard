@@ -22,7 +22,6 @@
 		if (state && Array.isArray(state)) {
 			deltagare = state;
 		}
-		window.addEventListener('nkk.res.change', persistState);
 	});
 	const persistState = () => {
 		localStorage.setItem('nkk.score', JSON.stringify(deltagare));
@@ -42,6 +41,7 @@
 		<Results
 			name={person.name}
 			temp={person.score}
+			on:updated={persistState}
 			on:delete={() => {
 				deltagare = deltagare.filter((p) => p.name !== person.name);
 				persistState();
