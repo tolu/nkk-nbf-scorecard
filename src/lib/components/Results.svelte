@@ -129,24 +129,43 @@
 		position: relative;
 		margin-bottom: 2rem;
 	}
+	.result-wrapper > h1 {
+		background-color: hsl(0 0% 14%);
+		margin: 0;
+		padding: 0.67em 2rem;
+		margin-inline: calc(50% - 50vw);
+	}
 	button {
 		position: absolute;
 		right: 0;
-		top: 0;
+		top: 1rem;
 	}
 	article {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(200px, 400px));
 		grid-gap: 1rem;
 	}
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
 	tbody td {
+		padding: 5px;
+		min-width: 5ch;
 		transition: background-color 0.4s ease-in-out;
 	}
+	input:focus {
+		outline: 2px solid #00b9f2;
+		outline-offset: 2px;
+	}
 	.godkjennt {
-		background-color: greenyellow;
+		outline: 2px solid greenyellow;
+		/* background-color: greenyellow; */
 	}
 	.opprykk {
-		background-color: goldenrod;
+		outline: 2px solid goldenrod;
+		/* background-color: goldenrod; */
 	}
 	form > div {
 		display: flex;
