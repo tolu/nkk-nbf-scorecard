@@ -2,7 +2,9 @@
 	import type { klasseD } from '$lib/bruks';
 	export let temp: typeof klasseD;
 	export let name: string;
-	export let onDelete: () => void;
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
 
 	const onChange = () => {
 		window.dispatchEvent(new CustomEvent('nkk.res.change', { detail: { name, value: temp } }));
@@ -119,7 +121,7 @@
 			</table>
 		</section>
 	</article>
-	<button class="nrk-button nrk-color-invert" on:click={onDelete}>Ta bort</button>
+	<button class="nrk-button nrk-color-invert" on:click={() => dispatch('delete')}>Ta bort</button>
 </div>
 
 <style>

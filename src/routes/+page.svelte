@@ -42,7 +42,7 @@
 		<Results
 			name={person.name}
 			temp={person.score}
-			onDelete={() => {
+			on:delete={() => {
 				deltagare = deltagare.filter((p) => p.name !== person.name);
 				persistState();
 			}}
