@@ -3,7 +3,7 @@
 	import type { DScore } from '$lib/bruks';
 	import Scorecard from '$lib/components/Scorecard.svelte';
 	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	let deltagare: Array<{ name: string; score: DScore }> = [];
 	const addPerson = (e: SubmitEvent) => {
@@ -38,8 +38,8 @@
 	</form>
 
 	<hr />
-	{#each deltagare as person}
-		<div transition:fade>
+	{#each deltagare as person (person.name)}
+		<div transition:fly={{ y: 150, duration: 400 }}>
 			<Scorecard
 				name={person.name}
 				temp={person.score}
