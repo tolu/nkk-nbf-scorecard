@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { klasseD } from '$lib/bruks';
 	import type { DScore } from '$lib/bruks';
-	import Results from '$lib/components/Results.svelte';
+	import Scorecard from '$lib/components/Scorecard.svelte';
 	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	let deltagare: Array<{ name: string; score: DScore }> = [];
 	const addPerson = (e: SubmitEvent) => {
@@ -38,16 +39,18 @@
 
 	<hr />
 	{#each deltagare as person}
-		<Results
-			name={person.name}
-			temp={person.score}
-			on:updated={persistState}
-			on:delete={() => {
-				deltagare = deltagare.filter((p) => p.name !== person.name);
-				persistState();
-			}}
-		/>
-		<hr />
+		<div transition:fade>
+			<Scorecard
+				name={person.name}
+				temp={person.score}
+				on:updated={persistState}
+				on:delete={() => {
+					deltagare = deltagare.filter((p) => p.name !== person.name);
+					persistState();
+				}}
+			/>
+			<hr />
+		</div>
 	{/each}
 </main>
 
