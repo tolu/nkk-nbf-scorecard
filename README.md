@@ -1,38 +1,15 @@
-# create-svelte
+# brukshund
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+> Scorecard för brukshundspröver
 
-## Creating a project
+## To Do
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [ ] bound range sliders https://learn.svelte.dev/tutorial/numeric-inputs
+- [ ] firebase eller liknande?
+- [ ] localhost vs sql-light?
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Resources
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- [NKK Regler for brukshundprover](https://www.norsk-brukshundsport.no/wp-content/uploads/2019/03/Regler_for_brukshundprover_190101-211231.pdf)
+- [NRK Core CSS](https://static.nrk.no/core-css/latest/index.html#button)
+- [SvelteKit](https://learn.svelte.dev)
