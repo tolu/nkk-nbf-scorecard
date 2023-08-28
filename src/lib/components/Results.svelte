@@ -98,17 +98,17 @@
 						<td />
 					</tr>
 					<tr
-						><td class:opprykk={opprykkLydighet} class:godkjennt={godkjenntLydighet}>
+						><td class="result" class:opprykk={opprykkLydighet} class:godkjennt={godkjenntLydighet}>
 							<b>
 								{resLydighet}
 							</b>
 						</td>
-						<td class:opprykk={opprykkSpesial} class:godkjennt={godkjenntSpesial}
+						<td class="result" class:opprykk={opprykkSpesial} class:godkjennt={godkjenntSpesial}
 							><b>
 								{resSpesial}
 							</b>
 						</td>
-						<td class:opprykk class:godkjennt
+						<td class="result" class:opprykk class:godkjennt
 							><b>
 								{resSum}
 							</b>
@@ -150,19 +150,22 @@
 	tbody td {
 		padding: 5px;
 		min-width: 5ch;
-		transition: background-color 0.4s ease-in-out;
+		transition: background-color 0.4s ease-in-out, outline-color 0.4s ease-in-out;
+	}
+	.result {
+		--color: 0, 0%, 50%;
+		outline: 2px solid hsl(var(--color));
+		background-color: hsl(var(--color), 0.1);
+	}
+	.result.godkjennt {
+		--color: 84, 100%, 59%;
+	}
+	.result.opprykk {
+		--color: 43, 74%, 49%;
 	}
 	input:focus {
 		outline: 2px solid #00b9f2;
 		outline-offset: 2px;
-	}
-	.godkjennt {
-		outline: 2px solid greenyellow;
-		/* background-color: greenyellow; */
-	}
-	.opprykk {
-		outline: 2px solid goldenrod;
-		/* background-color: goldenrod; */
 	}
 	form > div {
 		display: flex;
