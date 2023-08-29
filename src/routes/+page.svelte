@@ -1,18 +1,18 @@
 <script lang="ts">
 	import { klasseD } from '$lib/bruks';
-	import type { DScore } from '$lib/bruks';
 	import Scorecard from '$lib/components/Scorecard.svelte';
 	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 
-	let deltagare: Array<{ name: string; score: DScore }> = [];
+	let deltagare: Array<Deltager> = [];
 	const addPerson = (e: SubmitEvent) => {
 		if (e.target instanceof HTMLFormElement) {
 			deltagare = [
 				...deltagare,
 				{
 					name: e.target.name.value,
-					score: structuredClone(klasseD)
+					score: structuredClone(klasseD),
+					date: ''
 				}
 			];
 			e.target.reset();
@@ -25,6 +25,7 @@
 		}
 	});
 	const persistState = () => {
+		console.log('saving', deltagare);
 		localStorage.setItem('nkk.score', JSON.stringify(deltagare));
 	};
 </script>
@@ -41,8 +42,7 @@
 	{#each deltagare as person (person.name)}
 		<div transition:fly={{ y: 150, duration: 400 }}>
 			<Scorecard
-				name={person.name}
-				temp={person.score}
+				deltager={person}
 				on:updated={persistState}
 				on:delete={() => {
 					deltagare = deltagare.filter((p) => p.name !== person.name);

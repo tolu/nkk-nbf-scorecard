@@ -22,4 +22,3 @@ export const klasseD = {
 		opprykk: 312
 	} as const
 };
-export type DScore = typeof klasseD;

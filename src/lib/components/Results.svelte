@@ -1,18 +1,17 @@
 <script lang="ts">
-	import type { klasseD } from '$lib/bruks';
-	export let temp: typeof klasseD;
+	export let score: DScore;
 
-	$: resLydighet = temp.lydighet.moment.reduce((prev, next) => prev + next.score * next.ratio, 0);
-	$: resSpesial = temp.specialØvelser.moment.reduce(
+	$: resLydighet = score.lydighet.moment.reduce((prev, next) => prev + next.score * next.ratio, 0);
+	$: resSpesial = score.specialØvelser.moment.reduce(
 		(prev, next) => prev + next.score * next.ratio,
 		0
 	);
 	$: resSum = resLydighet + resSpesial;
-	$: godkjenntLydighet = resLydighet > temp.lydighet.godkjennt;
-	$: godkjenntSpesial = resSpesial > temp.specialØvelser.godkjennt;
+	$: godkjenntLydighet = resLydighet > score.lydighet.godkjennt;
+	$: godkjenntSpesial = resSpesial > score.specialØvelser.godkjennt;
 	$: godkjennt = godkjenntLydighet && godkjenntSpesial;
-	$: opprykkLydighet = resLydighet > temp.lydighet.opprykk;
-	$: opprykkSpesial = resSpesial > temp.specialØvelser.opprykk;
+	$: opprykkLydighet = resLydighet > score.lydighet.opprykk;
+	$: opprykkSpesial = resSpesial > score.specialØvelser.opprykk;
 	$: opprykk = opprykkLydighet && opprykkSpesial;
 </script>
 
@@ -30,13 +29,13 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>✅ {temp.lydighet.godkjennt} for godkjennt</td>
-				<td>✅ {temp.specialØvelser.godkjennt} for godkjennt</td>
+				<td>✅ {score.lydighet.godkjennt} for godkjennt</td>
+				<td>✅ {score.specialØvelser.godkjennt} for godkjennt</td>
 				<td />
 			</tr>
 			<tr>
-				<td>🏆 {temp.lydighet.opprykk} for opprykk</td>
-				<td>🏆 {temp.specialØvelser.opprykk} for opprykk</td>
+				<td>🏆 {score.lydighet.opprykk} for opprykk</td>
+				<td>🏆 {score.specialØvelser.opprykk} for opprykk</td>
 				<td />
 			</tr>
 			<tr

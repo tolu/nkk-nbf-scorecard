@@ -1,23 +1,28 @@
 <script lang="ts">
-	import type { klasseD } from '$lib/bruks';
-	export let temp: typeof klasseD;
-	export let name: string;
+	export let deltager: Deltager;
 	import { afterUpdate, createEventDispatcher } from 'svelte';
 	import Results from './Results.svelte';
 
 	const dispatch = createEventDispatcher();
-	afterUpdate(() => dispatch('updated'));
+	afterUpdate(() => {
+		console.log('update!');
+		dispatch('updated');
+	});
 </script>
 
 <div class="result-wrapper">
-	<h1>{name}</h1>
+	<header>
+		<h1>{deltager.name}</h1>
+		<input type="date" bind:value={deltager.date} />
+		<button class="nrk-button nrk-color-invert" on:click={() => dispatch('delete')}>Ta bort</button>
+	</header>
 	<article>
 		<section>
 			<header>
 				<h2>Lydighet</h2>
 			</header>
 			<form>
-				{#each temp.lydighet.moment as moment}
+				{#each deltager.score.lydighet.moment as moment}
 					<div>
 						<label for={moment.name}>{moment.name} (k: {moment.ratio})</label>
 						<input
@@ -41,7 +46,7 @@
 				<h2>Spesialøvelser</h2>
 			</header>
 			<form>
-				{#each temp.specialØvelser.moment as moment}
+				{#each deltager.score.specialØvelser.moment as moment}
 					<div>
 						<label for={moment.name}>{moment.name} (k: {moment.ratio})</label>
 						<input
@@ -60,10 +65,9 @@
 				{/each}
 			</form>
 
-			<Results {temp} />
+			<Results score={deltager.score} />
 		</section>
 	</article>
-	<button class="nrk-button nrk-color-invert" on:click={() => dispatch('delete')}>Ta bort</button>
 </div>
 
 <style>
@@ -71,16 +75,16 @@
 		position: relative;
 		margin-bottom: 2rem;
 	}
-	.result-wrapper > h1 {
+	.result-wrapper > header {
 		background-color: hsl(0 0% 14%);
-		margin: 0;
-		padding: 0.67em 2rem;
 		margin-inline: calc(50% - 50vw);
+		padding: 1.25rem 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
-	button {
-		position: absolute;
-		right: 0;
-		top: 1rem;
+	.result-wrapper > header > h1 {
+		margin: 0;
 	}
 	article {
 		display: grid;
