@@ -30,6 +30,10 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Scorecard Brukshundprøver</title>
+</svelte:head>
+
 <main>
 	<h1>Scorecard Brukshundprøver</h1>
 
