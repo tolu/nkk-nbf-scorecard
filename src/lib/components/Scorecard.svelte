@@ -5,10 +5,7 @@
 	import { calculateResults } from '$lib/calculator';
 
 	const dispatch = createEventDispatcher();
-	afterUpdate(() => {
-		console.log('update!');
-		dispatch('updated');
-	});
+	afterUpdate(() => dispatch('updated'));
 	$: score = calculateResults(deltager.score);
 </script>
 

@@ -25,7 +25,6 @@
 		}
 	});
 	const persistState = () => {
-		console.log('saving', deltagare);
 		localStorage.setItem('nkk.score', JSON.stringify(deltagare));
 	};
 </script>
