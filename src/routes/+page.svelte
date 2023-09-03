@@ -31,31 +31,37 @@
 </script>
 
 <main>
-	<h1>NKK Brukshundprøver</h1>
+	<h1>Scorecard Brukshundprøver</h1>
 
 	<form on:submit|preventDefault={addPerson}>
 		<input class="nrk-input" name="name" type="text" placeholder="Navn" />
 		<button class="nrk-button" type="submit">Lägg till deltager</button>
 	</form>
 
-	<hr />
-	{#each deltagare as person (person.name)}
-		<div transition:fly={{ y: 150, duration: 400 }}>
-			<Scorecard
-				deltager={person}
-				on:updated={persistState}
-				on:delete={() => {
-					deltagare = deltagare.filter((p) => p.name !== person.name);
-					persistState();
-				}}
-			/>
-			<hr />
-		</div>
-	{/each}
+	<div class="scorecard-list">
+		{#each deltagare as person (person.name)}
+			<div transition:fly={{ y: 150, duration: 400 }}>
+				<Scorecard
+					deltager={person}
+					on:updated={persistState}
+					on:delete={() => {
+						deltagare = deltagare.filter((p) => p.name !== person.name);
+						persistState();
+					}}
+				/>
+			</div>
+		{/each}
+	</div>
 </main>
 
 <style>
 	main {
 		padding-inline: 2rem;
+	}
+	.scorecard-list {
+		display: grid;
+		gap: 1rem;
+		grid-auto-flow: row;
+		margin-block: 2rem;
 	}
 </style>
