@@ -1,18 +1,8 @@
 <script lang="ts">
-	export let score: DScore;
+	import { calculateResults, resultEmojiMap } from '$lib/calculator';
 
-	$: resLydighet = score.lydighet.moment.reduce((prev, next) => prev + next.score * next.ratio, 0);
-	$: resSpesial = score.specialØvelser.moment.reduce(
-		(prev, next) => prev + next.score * next.ratio,
-		0
-	);
-	$: resSum = resLydighet + resSpesial;
-	$: godkjenntLydighet = resLydighet > score.lydighet.godkjennt;
-	$: godkjenntSpesial = resSpesial > score.specialØvelser.godkjennt;
-	$: godkjennt = godkjenntLydighet && godkjenntSpesial;
-	$: opprykkLydighet = resLydighet > score.lydighet.opprykk;
-	$: opprykkSpesial = resSpesial > score.specialØvelser.opprykk;
-	$: opprykk = opprykkLydighet && opprykkSpesial;
+	export let score: DScore;
+	$: results = calculateResults(score);
 </script>
 
 <section>
@@ -29,29 +19,36 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>✅ {score.lydighet.godkjennt} for godkjennt</td>
-				<td>✅ {score.specialØvelser.godkjennt} for godkjennt</td>
+				<td>{resultEmojiMap.godkjennt} {score.lydighet.godkjennt} for godkjennt</td>
+				<td>{resultEmojiMap.godkjennt} {score.specialØvelser.godkjennt} for godkjennt</td>
 				<td />
 			</tr>
 			<tr>
-				<td>🏆 {score.lydighet.opprykk} for opprykk</td>
-				<td>🏆 {score.specialØvelser.opprykk} for opprykk</td>
+				<td>{resultEmojiMap.opprykk} {score.lydighet.opprykk} for opprykk</td>
+				<td>{resultEmojiMap.opprykk} {score.specialØvelser.opprykk} for opprykk</td>
 				<td />
 			</tr>
 			<tr
-				><td class="result" class:opprykk={opprykkLydighet} class:godkjennt={godkjenntLydighet}>
+				><td
+					class="result"
+					class:opprykk={results.lydighet.opprykk}
+					class:godkjennt={results.lydighet.godkjennt}
+				>
 					<b>
-						{resLydighet}
+						{results.lydighet.score}
 					</b>
 				</td>
-				<td class="result" class:opprykk={opprykkSpesial} class:godkjennt={godkjenntSpesial}
+				<td
+					class="result"
+					class:opprykk={results.spesial.opprykk}
+					class:godkjennt={results.spesial.godkjennt}
 					><b>
-						{resSpesial}
+						{results.spesial.score}
 					</b>
 				</td>
-				<td class="result" class:opprykk class:godkjennt
+				<td class="result" class:opprykk={results.opprykk} class:godkjennt={results.godkjennt}
 					><b>
-						{resSum}
+						{results.total}
 					</b>
 				</td>
 			</tr>

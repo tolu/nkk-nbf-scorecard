@@ -2,18 +2,21 @@
 	export let deltager: Deltager;
 	import { afterUpdate, createEventDispatcher } from 'svelte';
 	import Results from './Results.svelte';
+	import { calculateResults } from '$lib/calculator';
 
 	const dispatch = createEventDispatcher();
 	afterUpdate(() => {
 		console.log('update!');
 		dispatch('updated');
 	});
+	$: score = calculateResults(deltager.score);
 </script>
 
 <div class="result-wrapper">
 	<details open>
 		<summary>
-			<h1>{deltager.name}</h1>
+			<h1>{deltager.name} {score.award}</h1>
+			<span>{score.total} poäng</span>
 			<input class="nrk-input" type="date" bind:value={deltager.date} />
 			<button class="nrk-button nrk-color-invert" on:click={() => dispatch('delete')}
 				>Ta bort</button
@@ -81,7 +84,7 @@
 		border-top: 1px solid #eee;
 		border-bottom: 1px solid #eee;
 	}
-	.result-wrapper summary {
+	summary {
 		background-color: hsl(0 0% 14%);
 		margin-inline: calc(50% - 50vw);
 		padding: 1.25rem 2rem;
@@ -90,8 +93,11 @@
 		justify-content: space-between;
 		cursor: pointer;
 	}
-	.result-wrapper summary > h1 {
+	summary > h1 {
 		margin: 0;
+	}
+	summary > span {
+		min-width: 11ch;
 	}
 	article {
 		display: grid;
